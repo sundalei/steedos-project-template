@@ -5,6 +5,7 @@ module.exports = {
     name: "steedos-server",
     namespace: "steedos",
     mixins: [SteedosService],
+    dependencies: ['metadata'],
     settings: {
         // Change port setting
         port: process.env.PORT,
