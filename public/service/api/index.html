@@ -527,41 +527,41 @@
 
 					requests: {
 						greeter: [
-							{ id: "hello", action: "greeter.hello", rest: "/services/greeter/hello", response: null, status: null, duration: null },
+							{ id: "hello", action: "greeter.hello", rest: "/service/api/greeter/hello", response: null, status: null, duration: null },
 
-							{ id: "welcome", action: "greeter.welcome", rest: "/services/greeter/welcome", fields: [
+							{ id: "welcome", action: "greeter.welcome", rest: "/service/api/greeter/welcome", fields: [
 								{ field: "name", label: "Name", type: "text", paramType: "param", model: "welcomeName" }
 							], response: null, status: null, duration: null }
 						],
 						products: [
-							{ id: "list", action: "products.list", rest: "/services/products/", response: null, status: null, duration: null, afterResponse: response => !this.fields.productID && (this.fields.productID = response.rows[0]._id) },
+							{ id: "list", action: "products.list", rest: "/service/api/products/", response: null, status: null, duration: null, afterResponse: response => !this.fields.productID && (this.fields.productID = response.rows[0]._id) },
 
-							{ id: "create", action: "products.create", rest: "/services/products/", method: "POST", fields: [
+							{ id: "create", action: "products.create", rest: "/service/api/products/", method: "POST", fields: [
 								{ field: "name", label: "Name", type: "text", paramType: "body", model: "productName" },
 								{ field: "price", label: "Price", type: "number", paramType: "body", model: "productPrice" },
 							], response: null, status: null, duration: null, afterResponse: response => this.fields.productID = response._id  },
 
-							{ id: "get", action: "products.get", rest: "/services/products/:id", method: "GET", fields: [
+							{ id: "get", action: "products.get", rest: "/service/api/products/:id", method: "GET", fields: [
 								{ field: "id", label: "ID", type: "text", paramType: "url", model: "productID" }
 							], response: null, status: null, duration: null },
 
-							{ id: "update", action: "products.update", rest: "/services/products/:id", method: "PUT", fields: [
+							{ id: "update", action: "products.update", rest: "/service/api/products/:id", method: "PUT", fields: [
 								{ field: "id", label: "ID", type: "text", paramType: "url", model: "productID" },
 								{ field: "name", label: "Name", type: "text", paramType: "body", model: "productName" },
 								{ field: "price", label: "Price", type: "number", paramType: "body", model: "productPrice" },
 							], response: null, status: null, duration: null },
 
-							{ id: "increase", action: "products.increaseQuantity", rest: "/services/products/:id/quantity/increase", method: "PUT", fields: [
+							{ id: "increase", action: "products.increaseQuantity", rest: "/service/api/products/:id/quantity/increase", method: "PUT", fields: [
 								{ field: "id", label: "ID", type: "text", paramType: "url", model: "productID" },
 								{ field: "value", label: "Value", type: "number", paramType: "body", model: "productValue" },
 							], response: null, status: null, duration: null },
 
-							{ id: "decrease", action: "products.decreaseQuantity", rest: "/services/products/:id/quantity/decrease", method: "PUT", fields: [
+							{ id: "decrease", action: "products.decreaseQuantity", rest: "/service/api/products/:id/quantity/decrease", method: "PUT", fields: [
 								{ field: "id", label: "ID", type: "text", paramType: "url", model: "productID" },
 								{ field: "value", label: "Value", type: "number", paramType: "body", model: "productValue" },
 							], response: null, status: null, duration: null },
 
-							{ id: "delete", action: "products.delete", rest: "/services/products/:id", method: "DELETE", fields: [
+							{ id: "delete", action: "products.delete", rest: "/service/api/products/:id", method: "DELETE", fields: [
 								{ field: "id", label: "ID", type: "text", paramType: "url", model: "productID" }
 							], response: null, status: null, duration: null },
 
@@ -698,24 +698,24 @@
 				},
 
 				updateBrokerOptions: function (name) {
-					this.req("/services/~node/options", null).then(res => this.broker = res);
+					this.req("/service/api/~node/options", null).then(res => this.broker = res);
 				},
 
 				updateNodeList: function (name) {
-					this.req("/services/~node/list", null).then(res => {
+					this.req("/service/api/~node/list", null).then(res => {
 						res.sort((a,b) => a.id.localeCompare(b.id));
 						this.nodes = res;
 					});
 				},
 
 				updateServiceList: function (name) {
-					this.req("/services/~node/services?withActions=true", null)
+					this.req("/service/api/~node/services?withActions=true", null)
 						.then(res => {
 							this.services = res;
 							res.sort((a,b) => a.name.localeCompare(b.name));
 							res.forEach(svc => svc.nodes.sort());
 						})
-						.then(() => this.req("/services/~node/actions", null))
+						.then(() => this.req("/service/api/~node/actions", null))
 						.then(res => {
 							res.sort((a,b) => a.name.localeCompare(b.name));
 							const actions = res.reduce((a,b) => {
