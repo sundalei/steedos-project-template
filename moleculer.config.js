@@ -37,7 +37,7 @@ module.exports = {
 
 	// Enable/disable logging or use custom logger. More info: https://moleculer.services/docs/0.14/logging.html
 	// Available logger types: "Console", "File", "Pino", "Winston", "Bunyan", "debug", "Log4js", "Datadog"
-	logger: {
+	logger: [{
 		type: "Console",
 		options: {
 			// Using colors on the output
@@ -52,9 +52,29 @@ module.exports = {
 			autoPadding: false
 		}
 	},
+	{
+		type: "File",
+		options: {
+			// Logging level
+			level: "info",
+			// Folder path to save files. You can use {nodeID} & {namespace} variables.
+			folder: "./logs",
+			// Filename template. You can use {date}, {nodeID} & {namespace} variables.
+			filename: "{nodeID}-{date}.log",
+			// Line formatter. It can be "json", "short", "simple", "full", a `Function` or a template string like "{timestamp} {level} {nodeID}/{mod}: {msg}"
+			formatter: "json",
+			// Custom object printer. If not defined, it uses the `util.inspect` method.
+			objectPrinter: null,
+			// End of line. Default values comes from the OS settings.
+			eol: "\n",
+			// File appending interval in milliseconds.
+			interval: 1 * 1000
+		},
+	}],
+
 	// Default log level for built-in console logger. It can be overwritten in logger options above.
 	// Available values: trace, debug, info, warn, error, fatal
-	logLevel: "info",
+	logLevel: "warn",
 
 	// Define transporter.
 	// More info: https://moleculer.services/docs/0.14/networking.html

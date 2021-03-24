@@ -11,14 +11,11 @@
     "node": ">=12"
   },
   "scripts": {
-    "start": "moleculer-runner services",
-    "cli": "moleculer connect --config ./moleculer.config.js --id cli",
-    "ci": "jest --watch",
-    "test": "jest --coverage",
-    "lint": "eslint services",
-    "dc:up": "docker-compose up --build -d",
-    "dc:logs": "docker-compose logs -f",
-    "dc:down": "docker-compose down"
+    "start": "yarn start:steedos && yarn start:app",
+    "start:steedos": "cross-env NODEID=STEEDOS-SERVER moleculer-runner services/steedos-server",
+    "start:app": "cross-env NODEID=STEEDOS-APP moleculer-runner --repl services/steedos-app",
+    "console": "cross-env NODEID=STEEDOS-CONSOLE moleculer connect --config ./moleculer.config.js",
+    "docker": "docker-compose up --build -d"
   },
   "keywords": [
     "steedos",
@@ -32,11 +29,12 @@
     "@steedos/accounts": "1.23.20",
     "@steedos/plugin-enterprise": "1.23.20",
     "@steedos/plugin-qywx": "^0.0.17",
+    "@steedos/service-metadata": "^1.0.0",
     "@steedos/service-package-loader": "0.0.1",
     "@steedos/service-steedos-server": "0.0.1",
     "@steedos/steedos-plugin-workflow": "2.1.1",
-    "@steedos/service-metadata": "^1.0.0",
     "@steedos/word-template": "1.23.0-alpha.17",
+    "cross-env": "^7.0.3",
     "dotenv-flow": "^3.1.0",
     "ioredis": "^4.22.0",
     "moleculer": "^0.14.12",

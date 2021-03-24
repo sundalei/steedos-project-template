@@ -27,3 +27,4 @@ steedos-packages/**/**
 server.log
 
 node-red-app/*.backup
+logs
