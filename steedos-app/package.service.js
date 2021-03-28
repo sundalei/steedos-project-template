@@ -2,13 +2,12 @@
 const project = require('./package.json');
 const packageName = project.name;
 const packageLoader = require('@steedos/service-package-loader');
-const serviceName = `$packages-${packageName}`;
 /**
  * @typedef {import('moleculer').Context} Context Moleculer's Context
  * 软件包服务启动后也需要抛出事件。
  */
 module.exports = {
-	name: serviceName,
+	name: packageName,
 	namespace: "steedos",
 	mixins: [packageLoader],
 	/**
@@ -17,7 +16,7 @@ module.exports = {
 	settings: {
 		packageInfo: {
 			path: __dirname,
-			name: serviceName
+			name: packageName
 		}
 	},
 
