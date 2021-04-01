@@ -22,11 +22,6 @@ module.exports = {
 	},
 
 	/**
-	 * Dependencies
-	 */
-	dependencies: [],
-
-	/**
 	 * Actions
 	 */
 	actions: {
